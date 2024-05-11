@@ -1,0 +1,48 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "gambling_sport";
+
+package bet;
+
+service BetProccessing{
+    rpc CreateBetRecord(CreateBetRecordRequest) returns(CreateBetRecordResponse);
+    rpc GetBetRecordsById(GetBetRecordsByIdRequest) returns(GetBetRecordsResponse);
+    rpc SettleBetRecord(SettleBetRecordRequest) returns (SettleBetRecordResponse);
+}
+
+message CreateBetRecordRequest{
+    Bet newBetRecord = 1;
+}
+
+message CreateBetRecordResponse{
+    bool isSuccess = 1;
+}
+
+message GetBetRecordsByIdRequest{
+    string memberId = 1;
+}
+
+message GetBetRecordsResponse{
+    repeated Bet betRecords = 1;
+}
+
+message SettleBetRecordRequest{
+    string gameId = 1;
+    string result = 2;
+    double rate = 3;
+}
+
+message SettleBetRecordResponse{
+    repeated Bet settleRecords = 1;
+}
+
+message Bet{
+    string memberId = 1;
+    string gameId = 2;
+    string betTime = 3;
+    string handsel = 4;
+    string betResult = 5;
+    string status = 6;
+    string returnVal = 7;
+}
+

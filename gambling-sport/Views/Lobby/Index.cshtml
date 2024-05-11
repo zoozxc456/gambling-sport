@@ -1,0 +1,49 @@
+﻿@model gambling_sport.Models.ViewModels.LobbyViewModel
+@{
+    var sportGameList = Model.SportGameList ?? new List<gambling_sport.Models.ViewModels.SportGameModel>();
+    var sportGameCols = new List<string>() {
+        "Gamename",
+        "Description",
+        "HostTeamname",
+        "HostWinRate",
+        "GuestTeamname",
+        "GuestWinRate",
+        "IsLocked",
+        "Action"
+    };
+}
+<div>Lobby</div>
+<div>Hi, @Model.Username</div>
+<div>你的餘額：@Model.Balance</div>
+
+
+<table border="1">
+    <tr>
+        @foreach (var col in sportGameCols)
+        {
+            <th>@col</th>
+        }
+    </tr>
+
+    @foreach (var sportGame in sportGameList)
+    {
+        <tr>
+            <td>@sportGame.Gamename</td>
+            <td>@sportGame.Description</td>
+            <td>@sportGame.HostTeamname</td>
+            <td>@sportGame.HostWinRate</td>
+            <td>@sportGame.GuestTeamname</td>
+            <td>@sportGame.GuestWinRate</td>
+            <td>@(sportGame.IsLocked?"已鎖盤":"可以下注")</td>
+            <td>
+            <form asp-action="Index" asp-controller="Bet" method="post">
+                <input type="hidden" name="GameId" value="@sportGame.GameId" />
+                <input type="submit" value="下注" disabled="@sportGame.IsLocked" />
+            </form>
+        </tr>
+    }
+</table>
+
+<button onclick="window.location='@Url.Action("Logout","Login")'">Logout</button>
+
+<button onclick="window.location='@Url.Action("Index","Record")'">Record</button>

@@ -1,0 +1,55 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "gambling_sport";
+
+package game;
+
+service GameProcessing{
+  rpc GetGames (GetGamesRequest) returns (GetGamesResponse);
+  rpc GetGameById (GetGameByIdRequest) returns (GetGameByIdResponse);
+  rpc UpdateWinRate(UpdateWinRateRequest) returns (UpdateWinRateResponse);
+  rpc CreateGame(CreateGameRequest) returns (CreateGameResponse);
+}
+
+message CreateGameRequest{
+    Game game = 1;
+}
+
+message CreateGameResponse{
+    bool isSuccess = 1;
+}
+
+message UpdateWinRateRequest{
+    Game game = 1;
+}
+
+message UpdateWinRateResponse{
+    bool isSuccess = 1;
+}
+
+message GetGamesRequest {
+}
+
+message GetGamesResponse {
+    repeated Game games = 1;
+}
+
+message GetGameByIdRequest {
+    string gameId = 1;
+}
+
+message GetGameByIdResponse {
+    Game game = 1;
+}
+
+message Game{
+    string gameId = 1;
+    string gamename = 2;
+	string description = 3;
+    string hostTeamname = 4;
+    double hostWinRate = 5; 
+    string guestTeamname = 6;
+    double guestWinRate = 7;
+    bool isLocked = 8;
+    string result = 9;
+}

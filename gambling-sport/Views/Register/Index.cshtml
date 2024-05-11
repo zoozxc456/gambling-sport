@@ -1,0 +1,25 @@
+﻿@model gambling_sport.Models.ViewModels.RegisterViewModel
+
+<div>
+    <form asp-action="Register" asp-controller="Register" method="post">
+        <div>
+            <label for="account">Account : </label>
+            <input name="account" type="text"/>
+        </div>
+        <div>
+            <label for="password">Password : </label>
+            <input name="password" type="password"  />
+        </div>
+        <div>
+            <label for="username">Username : </label>
+            <input name="username" type="text"  />
+        </div>
+        <div>
+            <label for="email">Email : </label>
+            <input name="email" type="email" />
+        </div>
+        <div>
+            <input type="submit" />
+        </div>
+    </form>
+</div>

@@ -1,0 +1,49 @@
+version: '3.4'
+
+services:
+  gambling-sport-member:
+    image: ${DOCKER_REGISTRY-}gamblingsportmember
+    build:
+      context: .
+      dockerfile: gambling-sport-member/Dockerfile
+    ports:
+        - "50050:50050"
+        - "50051:50051"
+    networks: 
+        - "gambling_network"
+
+  gambling-sport-game:
+    image: ${DOCKER_REGISTRY-}gamblingsportgame
+    build:
+      context: .
+      dockerfile: gambling-sport-game/Dockerfile
+    ports:
+        - "20050:20050"
+        - "20051:20051"
+    networks: 
+      - "gambling_network"
+
+  gambling-sport-bet:
+    image: ${DOCKER_REGISTRY-}gamblingsportbet
+    build:
+      context: .
+      dockerfile: gambling-sport-bet/Dockerfile
+    ports:
+        - "10050:10050"
+        - "10051:10051"
+    networks: 
+      - "gambling_network"
+
+  gambling-sport:
+    image: ${DOCKER_REGISTRY-}gamblingsport
+    build:
+      context: .
+      dockerfile: gambling-sport/Dockerfile
+    ports:
+        - "3000:80"
+    networks: 
+      - "gambling_network"
+
+networks:
+  gambling_network:
+    external: true

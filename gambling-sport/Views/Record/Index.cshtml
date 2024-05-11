@@ -1,0 +1,41 @@
+﻿@model gambling_sport.Models.ViewModels.BetRecordsViewModel
+@{
+    var betRecords = Model.Records;
+    var columns = new List<string>{"Gamename",
+        "Description",
+        "HostTeamname",
+        "HostWinRate",
+        "GuestTeamname",
+        "GuestWinRate",
+        "BetResult",
+        "Handsel",
+        "Status",
+        "ReturnValue"};
+}
+
+<div>Records</div>
+
+<table border="1">
+    <tr>
+        @foreach (var col in columns)
+        {
+            <th>@col</th>
+        }
+
+    </tr>
+    @foreach (var betRecord in betRecords)
+    {
+        <tr>
+            <td>@betRecord.Gamename</td>
+            <td>@betRecord.Description</td>
+            <td>@betRecord.HostTeamname</td>
+            <td>@betRecord.HostWinRate</td>
+            <td>@betRecord.GuestTeamname</td>
+            <td>@betRecord.GuestWinRate</td>
+            <td>@betRecord.BetResult</td>
+            <td>@betRecord.Handsel</td>
+            <td>@betRecord.Status</td>
+            <td>@betRecord.ReturnVal</td>
+        </tr>
+    }
+</table>

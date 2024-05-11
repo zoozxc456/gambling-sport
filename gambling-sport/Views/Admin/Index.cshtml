@@ -1,0 +1,81 @@
+﻿@model gambling_sport.Models.ViewModels.SportGameModelListViewModel
+@{
+    var sportGameList = Model.SportGameList ?? new List<gambling_sport.Models.ViewModels.SportGameModel>();
+    var sportGameCols = new List<string>() {
+        "Gamename",
+        "Description",
+        "HostTeamname",
+        "HostWinRate",
+        "GuestTeamname",
+        "GuestWinRate",
+        "IsLocked",
+        "Winner",
+        "Action"
+    };
+}
+
+
+<div>Admin</div>
+
+
+<table border="1">
+    <tr>
+        @foreach (var col in sportGameCols)
+        {
+            <th>@col</th>
+        }
+    </tr>
+
+    @foreach (var sportGame in sportGameList)
+    {
+
+        <tr>
+            <form asp-action="UpdateGame" asp-controller="Admin" method="post">
+            <td><input type="hidden" name="GameId" value="@sportGame.GameId" /><input type="text" name="Gamename" value="@sportGame.Gamename" /></td>
+            <td><input type="text" name="Description" value="@sportGame.Description" /></td>
+            <td><input type="text" name="HostTeamname" value="@sportGame.HostTeamname" /></td>
+            <td><input type="number" name="HostWinRate" value="@sportGame.HostWinRate" min="0.00" max="99.00" step="0.01" /></td>
+            <td><input type="text" name="GuestTeamname" value="@sportGame.GuestTeamname" /></td>
+            <td><input type="number" name="GuestWinRate" value="@sportGame.GuestWinRate" min="0.00" max="99.00" step="0.01" /></td>
+            <td>
+                <input type="radio" name="IsLocked" value="false" checked="@(!sportGame.IsLocked)" />
+                <label>No</label>
+                <input type="radio" name="IsLocked" value="true" checked="@sportGame.IsLocked" />
+                <label>Yes</label>
+            </td>
+            <td>
+                @if (sportGame.Result != "")
+                {
+                    <input type="text" name="Result" value="@sportGame.Result" disabled />
+                }
+                else if (!sportGame.IsLocked)
+                {
+                    <input type="text" name="Result" disabled/>
+                }
+                else
+                {
+                    <input type="text" name="Result" />
+                }
+
+            </td>
+            <td>
+                <input type="submit" name="Update" value="更新" />
+                <button type="button" onclick="settleHandler('@sportGame.GameId')">結算</button>
+            </td>
+
+            </form>
+        </tr>
+
+    }
+</table>
+
+<form id="settleForm" asp-action="Settle" asp-controller="Bet" method="post">
+    <input type="hidden" id="settleGameId" name="GameId" />
+</form>
+
+<button onclick="window.location='@Url.Action("CreateNewGame","Admin")'">新增賽事</button>
+
+<script>function settleHandler(gameId) {
+        document.getElementById("settleGameId").value = gameId;
+        document.getElementById("settleForm").submit();
+    }</script>

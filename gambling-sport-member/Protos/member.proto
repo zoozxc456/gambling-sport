@@ -1,0 +1,86 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "gambling_sport_member";
+
+package member;
+
+service Member {
+  rpc Login(LoginRequest) returns (LoginResponse) {}
+  rpc Register(RegisterRequest) returns (RegisterResponse) {}
+  rpc GetRole(GetUserInfoRequest) returns (GetRoleResponse);
+  rpc GetAccount(GetUserInfoRequest) returns (GetAccountResponse);
+  rpc GetMemberById(GetMemberByIdRequest) returns (GetMemberByIdResponse);
+  rpc UpdateBalance(UpdateBalanceRequest) returns (UpdateBalanceResponse);
+  rpc Settle(SettleRequest) returns (SettleResponse);
+}
+
+message LoginRequest {
+  string account = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+  string role = 2;
+  string username = 3;
+  string id = 4;
+}
+
+message RegisterRequest {
+  string account = 1;
+  string password = 2;
+  string username = 3;
+  string email = 4;
+}
+
+message RegisterResponse {
+  string message = 1;
+}
+
+message GetUserInfoRequest {
+  string token = 1;
+}
+
+message GetRoleResponse {
+  string role = 1;
+}
+
+message GetAccountResponse {
+  string account = 1;
+}
+
+message UpdateBalanceRequest{
+    string memberId = 1;
+    string userBetHandsel = 2;
+}
+
+message UpdateBalanceResponse{
+    bool isSuccess = 1;
+    string updatedBalance = 2;
+}
+
+message GetMemberByIdRequest{
+    string memberId = 1;
+}
+
+message GetMemberByIdResponse{
+    string memberId = 1;
+    string account = 2;
+    string username = 3;
+    string email = 4;
+    string role = 5;
+    string balance = 6;
+}
+
+message SettleModel{
+    string memberId = 1;
+    string returnval = 2;
+}
+
+message SettleRequest{
+    repeated SettleModel members = 1;
+}
+
+message SettleResponse{
+    bool isSuccess = 1;
+}

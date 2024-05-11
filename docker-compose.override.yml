@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  gambling-sport-member:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "50050:50050"
+      - "50051:50051"
+
+  gambling-sport-game:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "20050:20050"
+      - "20051:20051"
+
+  gambling-sport-bet:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "10050:10050"
+      - "10051:10051"
+
+
+  gambling-sport:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "3000:80"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
